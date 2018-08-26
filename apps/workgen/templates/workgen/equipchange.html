@@ -1,0 +1,91 @@
+<html>
+    <head>
+       <title>Equipment Availability Page</title>
+ 
+
+    
+   
+   <style>
+.links {
+    margin-left:600px;
+   }
+   .heading a{
+    margin-left:20px;
+   }
+   .heading *{
+    display:inline-block;
+   }
+
+li, p{
+  color:#fff;
+}
+.wrapper{
+  background-color:blue;
+}
+ .cur_equip{
+ /* width:800px; */
+  display:block;
+  margin: 0px auto;
+ border: 1px solid white;
+ }
+  
+.cur_equip li {
+  display: inline-block;
+  vertical-align:top;
+  list-style: disc;
+  margin-left:10px;
+}          
+          .heading {
+          
+           display: block;
+           vertical-align:top;
+          height:100px;
+          border: 2px solid black;
+          background: linear-gradient(#000066,#3333ff,#000066);
+           }
+           
+    form 
+    {
+     margin: 0px auto;
+     width: 400;
+    }
+  </style>
+
+</head>
+
+   <body>
+      <div class="heading"> 
+        <h1> Equipment Selection Page</h1>
+          <div class="links">
+          <a href="/">Home</a>
+           <a href="/logout">Logout</a>
+
+         </div>
+     </div>
+     {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+    <div class="wrapper">
+    <div class="cur_equip">
+    <p> Currently Selected Equipment</p>
+    <ul>
+    {% for e in user_equipment %}
+    
+      <li>{{e.name}}</li>
+    
+     {% endfor %}
+     </ul>
+    </div>
+    <form action='/process_change_equipment' method='POST'>
+ {% csrf_token %}
+     {{equiplistform.as_p}}
+
+      <input type="submit" value="submit">
+    </form>
+  </div>
+    </body>
+
+
+
+
+</html>

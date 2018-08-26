@@ -1,0 +1,56 @@
+<html>
+    <head>
+       <title>Equipment Availability Page</title>
+ 
+
+    </head>
+    <style>
+   <style>
+
+    .heading {
+          
+           display: block;
+           vertical-align:top;
+          height:100px;
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 400;
+    }
+  </style>
+
+
+   <body>
+      <div class="heading"> 
+        <h1> Hello {{ userinfo.first_name }}!</h1>
+          <div class="links">
+           <a href="/logout">Logout</a>
+         </div>
+     </div>
+      <H1>Please choose all equipment you have access to.</H1>
+     {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+    <form action='/process_equipment' method='POST'>
+    {% csrf_token %}
+    {% for u in user_equipment %}
+    {% for e in equipment %}
+    
+    <p><input type="checkbox" id="{{e.name}}" name="{{e.name}}" value="{{e.name}}" 
+    {% if e.name == u.name %}
+       checked>
+       {% endif %}
+    <label for="{{e.name}}">{{e.name}}</label></p>
+
+      {% endfor %}
+ {% endfor %}
+
+     <input type="submit" value="submit">
+   </form>
+    </body>
+
+
+
+
+</html>

@@ -1,0 +1,70 @@
+<html>
+    <head>
+       <title>Busy-Body App!</title>
+    <style>
+     .wrapper{
+      margin-left:200px;
+      
+     }
+     .right {
+      display:inline-block;
+      width:500px;
+      vertical-align:top;
+      
+    }
+    .left {
+      display:inline-block;
+      width:300px;
+      
+    }
+    .heading {
+      height:100px;
+    }    
+
+
+    form *{
+      display:block;
+    }
+  </style>
+    </head>
+   
+
+    <body>
+   
+     <div class="heading">
+      <H1> Welcome! </H1>
+     </div> 
+    <div class="wrapper"> 
+     <div class="left">
+      {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+
+      <h1>Register</h1>
+      <form action='/process_registration' method='post'>
+         {% csrf_token %}
+          <label for="firstname">Firstame: <input type='text' name='firstname' id='firstname'></label>
+          <label for="lastname">Lastname: <input type='text' name='lastname' id='lastname'></label>
+          <label for="email">Email Address: <input type='text' name='email' id='email'></label>
+          <label for="password">Password: <input type="password" name='password' id='password'></label>
+          <p>Password Should be at least 8 characters</p>
+          <label for="cpassword">Confirm Password: <input type="password" name='cpassword' id='cpasswpord'></label>
+          <input type='submit' value='Register'>
+      </form>
+      </div>
+     <div class="right"> 
+      <p>  {{loginerror}}  </p>
+       {% for e in lerrorlist %}
+          <p>  {{e}}  </p>
+         {% endfor %}
+   <h1>Login</h1> 
+<form action='/logincheck' method='POST'>
+    {% csrf_token %}
+    <label for="username">Username(Email):<input type="text" name="email" id='email'></label>
+    <label for="password">Password:<input type="password" name="password" id='password'></label> 
+    <input type="submit" value="Login">
+  </form>
+  </div>
+ </div>   
+    </body>
+</html>

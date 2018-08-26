@@ -1,0 +1,56 @@
+<html>
+    <head>
+       <title>Add A Muscle Group to a Movement</title>
+    </head>
+    <style>
+    h3 {
+      margin-left:500px;
+    }
+    .heading .links{
+      margin-left:800px;
+    }
+    .heading {
+          
+           display: inline-block;
+           vertical-align:top;
+           }
+    input {
+    
+           margin-right: 0px;
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 600;
+    }
+  </style>
+
+
+    <body>
+       <div class="heading"> 
+        <div class="links">
+        <a href="/admin/adminpage">Admin Page</a>
+       <a href="/logout">Logout</a>
+      </div>
+    </div>
+    {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+      <h3>Add Musclegroup to a Movement</h3>
+    <form action='/admin/process_postmovementmuscle' method='POST'>
+    {% csrf_token %}
+    Movement: <select name = "movelist">
+                                       {% for move in allmoves %}
+                                       <option value="{{move.id}}">{{move.name}}</option>
+                                       {% endfor %}
+                                                 </select>
+    Muscle: <select name = "mglist">
+                                       {% for mg in allmgroups %}
+                                       <option value="{{mg.id}}">{{mg.name}}</option>
+                                       {% endfor %}
+                                                 </select>
+    
+    <p><input type="submit" value="Add"></p>
+  </form>
+    </body>
+</html>

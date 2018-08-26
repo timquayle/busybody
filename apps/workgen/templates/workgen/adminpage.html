@@ -1,0 +1,44 @@
+<html>
+    <head>
+       <title>Add A Movement</title>
+    </head>
+    <style>
+    h3 {
+      margin-left:500px;
+    }
+    .heading .links{
+      margin-left:800px;
+    }
+    .heading {
+          
+           display: inline-block;
+           vertical-align:top;
+           }
+    input {
+    
+           margin-right: 0px;
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 600;
+    }
+  </style>
+
+
+    <body>
+       <div class="heading"> 
+        <div class="links">
+        <a href="/">Home</a>
+       <a href="/logout">Logout</a>
+      </div>
+    </div>
+    {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+      <h3>Administration Page</h3>
+      <p><a href="/admin/addmovement">Add Movement</a></p>
+      <p><a href="/admin/modmovement">Modify Movement</a></p>
+      <p><a href="/admin/addmovementmuscle">Link Musclegroup to Movement</a></p>
+    </body>
+</html>

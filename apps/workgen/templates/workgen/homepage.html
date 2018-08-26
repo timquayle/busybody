@@ -1,0 +1,90 @@
+<html>
+    <head>
+       <title>BusyBody Homepage</title>
+ 
+
+    </head>
+    <style>
+   <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 400px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+td form input{
+     background:none!important;
+     color:blue;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     border-bottom:1px solid blue; 
+     cursor: pointer;
+     display:inline-block;
+}
+   .links {
+    margin-left:600px;
+   }
+   .heading a{
+    margin-left:20px;
+   }
+   .heading *{
+    display:inline-block;
+   }
+   .bottom{
+      width:600px;
+      display:block;
+      margin-left:50px; 
+    }
+    .top{
+     margin-left:50px; 
+      width:600px;
+      display:block;
+    }
+    .heading {
+          
+           display: block;
+           vertical-align:top;
+          height:100px;
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 400;
+    }
+  </style>
+
+
+   <body>
+      <div class="heading"> 
+        <h1> Hello {{ userinfo.first_name }}!</h1>
+          <div class="links">
+           <a href="/logout">Logout</a>
+         </div>
+     </div>
+      <H1> BusyBody Workout Generation App </H1>
+     {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+     <form action='/process_wodate' method='post'>
+         {% csrf_token %}
+          <label for="wodate">Workout Date: <input type='date' name='wodate' id='wodate'></label>
+          
+          <input type='submit' value='Generate Workout'>
+
+      </form>
+    </body>
+
+
+
+
+</html>

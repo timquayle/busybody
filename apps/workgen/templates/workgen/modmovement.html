@@ -1,0 +1,52 @@
+<html>
+    <head>
+       <title>Modify A Movement</title>
+    </head>
+    <style>
+    h3 {
+      margin-left:500px;
+    }
+    .heading .links{
+      margin-left:800px;
+    }
+    .heading {
+          
+           display: inline-block;
+           vertical-align:top;
+           }
+    input {
+    
+           margin-right: 0px;
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 600;
+    }
+  </style>
+
+
+    <body>
+       <div class="heading"> 
+        <div class="links">
+        <a href="/admin/adminpage">Admin Page</a>
+       <a href="/logout">Logout</a>
+      </div>
+    </div>
+    {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+      <h3>Modify a Movement</h3>
+    <form action='/admin/process_postmovemod' method='POST'>
+    {% csrf_token %}
+     Movement: <select name = "movelist">
+                                       {% for move in allmoves %}
+                                       <option value="{{move.id}}">{{move.name}}</option>
+                                       {% endfor %}
+                                                 </select>
+    <p><label for="rps">RepsPerSet: </label><input type="number" name="rps" id='rps'></p>
+    <p><label for="weight_type">WeightType: </label><input type="text" name="weight_type" id='weight_type'></p>
+    <p><input type="submit" value="modify"></p>
+  </form>
+    </body>
+</html>

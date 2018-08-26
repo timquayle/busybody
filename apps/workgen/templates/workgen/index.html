@@ -1,0 +1,140 @@
+<html>
+    <head>
+       <title>Busy-Body App!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+ 
+      // Wait until the DOM has loaded before querying the document
+      $(document).ready(function(){
+        $('ul.tabs').each(function(){
+          // For each set of tabs, we want to keep track of
+          // which tab is active and its associated content
+          var $active, $content, $links = $(this).find('a');
+
+          // If the location.hash matches one of the links, use that as the active tab.
+          // If no match is found, use the first link as the initial active tab.
+          $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+          $active.addClass('active');
+
+          $content = $($active[0].hash);
+
+          // Hide the remaining content
+          $links.not($active).each(function () {
+            $(this.hash).hide();
+          });
+
+          // Bind the click event handler
+          $(this).on('click', 'a', function(e){
+            // Make the old tab inactive.
+            $active.removeClass('active');
+            $content.hide();
+
+            // Update the variables with the new link and content
+            $active = $(this);
+            $content = $(this.hash);
+
+            // Make the tab active.
+            $active.addClass('active');
+            $content.show();
+
+            // Prevent the anchor's default click action
+            e.preventDefault();
+          });
+        });
+      });
+    
+</script>
+     <style>
+      
+    
+      h1 {
+    font-size: 38px;
+    font-family: Gotham-Rounded-Bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color:fff;
+
+          }
+
+      * {padding:0; margin:0;}
+
+      html {
+     /*   background:url(text.png) 0 0 repeat; */
+     background-color:blue;
+        padding:15px 15px 0;
+        font-family:sans-serif;
+        font-size:14px;
+        color:#000;
+      }
+
+      p, h3 { 
+        margin-bottom:15px;
+      }
+
+      #tab1, #tab2 {
+        padding:10px;
+        width:600px;
+        background:#fff;
+      }
+
+      .tabs li {
+        list-style:none;
+        display:inline;
+      }
+
+      .tabs a {
+        padding:5px 10px;
+        display:inline-block;
+        background:#666;
+        color:#fff;
+        text-decoration:none;
+      }
+
+      .tabs a.active {
+        background:#fff;
+        color:#000;
+      }
+  .wrapper{
+    margin: 0px auto;
+  }
+  .errormsg{
+    color:red;
+  }
+  </style>
+    </head>
+   
+
+    <body>
+<div class="wrapper">
+<h1> BusyBody Login</h1>
+<ul class='tabs'>
+  <li><a href='#tab1'>Login</a></li>
+  <li><a href='#tab2'>Register</a></li>
+</ul>
+<div id='tab1'>
+ <form action='/logincheck' method='POST'>
+    {% csrf_token %}
+  <h4> Please Login, If you have not registered, please click the "Register" Tab</h4>
+  <p class="errormsg">{{ loginerror }} </p>
+  <p><input type="text" name="email" id='email' placeholder='Email'></label> </p>
+  <input type="password" name="password" id='password' placeholder='Password'></label> </p>
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+<div id='tab2'>
+  <h3>Register</h3>
+      <form action='/process_registration' method='post'>
+         {% csrf_token %}
+        <p> <label for="firstname">Firstname: <input type='text' name='firstname' id='firstname'></label> </p>
+        <p>  <label for="lastname">Lastname: <input type='text' name='lastname' id='lastname'></label> </p>
+         <p>  <label for="email">Email Address: <input type='text' name='email' id='email'></label> </p>
+         <p> <label for="password">Password: <input type="password" name='password' id='password'></label> </p>
+          <p>Password Should be at least 8 characters</p>
+          <label for="cpassword">Confirm Password: <input type="password" name='cpassword' id='cpasswpord'></label>
+          <input type='submit' value='Register'>
+        </form>
+</div>
+</div>
+</body>
+</html>

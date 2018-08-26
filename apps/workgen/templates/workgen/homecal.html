@@ -1,0 +1,263 @@
+<html>
+    <head>
+       <title>BusyBody Homepage</title>
+ 
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style>
+  .m{
+    display:none;
+  }
+  .body h1{
+    color:#fff;
+    /* margin-left:400px; */
+   width:500px;
+   margin: 0px auto;
+   margin-top:100px;
+  }
+  .body{
+    background-color:blue;
+    height:800px;
+  }
+   .week {
+    display:block;
+    margin: 0 auto;
+    width:1600px;
+   }
+
+   span {
+    display: none; 
+   }
+   .moves {
+    font-size:10px;
+   }
+
+
+   .sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday  {
+   display:inline-block;
+   vertical-align:top;
+   height:200px;
+   width:200px;
+   border: 2px solid black;
+  background-color: #e6e6ff;
+  margin-left:10px; 
+   }
+   .monhead{
+    border:1px solid black;
+    width:205px;
+    background-color:#e6e6ff;
+   }
+   .links {
+    margin-left:600px;
+    color:black;
+    font-size: 15px;
+    font-weight: bold;
+   }
+   .heading a{
+    margin-left:20px;
+   }
+   .heading *{
+    display:inline-block;
+   }
+   .bottom{
+      width:600px;
+      display:block;
+      margin-left:50px; 
+    }
+    .top{
+     margin-left:50px; 
+      width:600px;
+      display:block;
+    }
+    .heading {
+          
+           display: block;
+           vertical-align:top;
+          height:100px;
+          border: 2px solid black;
+          background: linear-gradient(#000066,#3333ff,#000066);
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 400;
+    }
+  </style>
+ <script type="text/javascript">
+        
+             
+            $(document).on('mouseover', '.moves p', function(event) {
+              var wname;
+              var mname;
+           // var move = $(this).html().textcontent;
+            // $( '.sunmoves p' ).each( function( ) {
+                //console.log(this)
+        //      var hid =  $("p:hidden") 
+               var move = $(this).html()
+              console.log("FOOOO",move);
+               var res = move.split(" ", 3);
+              
+              // var tc = res[1].textcontent
+               console.log("BAR",res[1]);
+               const s = res[1].split("<",3)
+               console.log("S0",s[0]);
+                $.ajax({
+                  
+                     url: '/getmovedetails/' + s[0],
+                     method: 'get',
+                     success: function(serverResponse) { 
+                                                        console.log("HELLO",serverResponse)
+                                                        obj = JSON.parse(serverResponse);
+                                                        for (var key in obj) {
+                                                        mname = (obj[key].fields.name)                      
+                                                        wname = (obj[key].fields.wtype)
+                                                        console.log("IIII",wname);
+                                                   //     title=wname;
+                                                        }
+                                                        $('.tooltipp').tooltip('destroy');    
+                                                         $('.tooltipp').tooltip(
+                                                           {trigger: 'click',
+                                                            title: 'Movement Name:'+ mname + '\n'+ 'Equipment Required: ' + wname,
+                                                            placement: 'right'
+                                                          
+                                                           } 
+                                                           
+                                                         ); 
+                                                                                   
+                     }
+                    
+                     });  
+  
+            })     
+
+
+
+ </script>
+  </head>
+   <body>
+      <div class="heading"> 
+        <h1> Hello {{ userinfo.first_name }}!</h1>
+          <div id="placeholder1"></div>
+          <div class="links">
+           <a href="/change_equip">Change Available Equipment</a>
+           <a href="/logout">Logout</a>
+         </div>
+     </div>
+     <div class="body">
+     
+     {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+   <div class="bottom">
+    <div class="week">
+      <div class="sunday">
+      <p>Sunday    {{sunday_date}}</p>
+      <div class="moves">
+     
+     {% if sunday_moves == "" %}
+       <p>Rest Day!</p>
+       {% else %}
+     {% for move in sunday_moves %}
+     
+     <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+      {% endfor %}
+      {% endif %}
+        </div>
+       </div>
+       <div class="monday">   
+          <p>Monday   {{monday_date}}</p>
+       <div class="moves">
+        {% if monday_moves == "" %}
+       <p>Rest Day!</p>
+       {% else %}
+      {% for move in monday_moves %}
+     <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+      {% endfor %}
+        {% endif %}
+        </div>
+      </div>
+      <div class="tuesday">
+      <p>Tuesday  {{tuesday_date}}       </p>
+       <div class="moves">
+       {% if tuesday_moves == "" %}
+       <p>Rest Day!</p>
+       {% else %}
+       {% for move in tuesday_moves %}
+     <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+      {% endfor %}
+      {% endif %}
+       </div>
+      </div>
+      <div class="wednesday">
+      <p>Wednesday {{wednesday_date}}      </p>
+      <div class="moves">
+        {% if wednesday_moves == "" %}
+            <p>Rest Day!</p>
+          {% else %}
+       {% for move in wednesday_moves %}
+     <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+      {% endfor %}
+       {% endif %}
+        </div>
+      </div>
+      <div class="thursday">
+        <p>Thursday {{thursday_date}}      </p>
+        <div class="moves">
+        {% if thursday_moves == "" %}
+            <p>Rest Day!</p>
+       {% else %}
+       {% for move in thursday_moves %}
+        <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+         {% endfor %}
+        {% endif %}
+          </div>
+         </div>
+      <div class="friday"> 
+       <p>Friday   {{friday_date}}    </p>
+     <div class="moves">
+      {% if friday_moves == "" %}
+            <p>Rest Day!</p>
+       {% else %}
+       {% for move in friday_moves %}
+        <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+         {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+      <div class="saturday">
+       <p>Saturday {{saturday_date}}        </p>
+      <div class="moves">
+      {% if saturday_moves == "" %}
+            <p>Rest Day!</p>
+       {% else %}
+       {% for move in saturday_moves %}
+        <p class="tooltipp"><span> {{move.id}}</span> {{move.repsperset}} {{move.name}} </p>
+         {% endfor %}
+        {% endif %}
+        </div>
+       </div>
+      </div>
+    </div>
+
+
+
+
+
+     <form action='/process_wodate' method='post'>
+         {% csrf_token %}
+          <label for="wodate">Workout Date: <input type='date' name='wodate' id='wodate'></label>
+          
+          <input type='submit' value='Generate Workout'>
+
+      </form>
+     <H1> BusyBody Workout Generation App </H1>
+     </div>
+ 
+    </body>
+
+
+
+
+</html>

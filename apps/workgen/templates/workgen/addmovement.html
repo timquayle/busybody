@@ -1,0 +1,48 @@
+<html>
+    <head>
+       <title>Add A Movement</title>
+    </head>
+    <style>
+    h3 {
+      margin-left:500px;
+    }
+    .heading .links{
+      margin-left:800px;
+    }
+    .heading {
+          
+           display: inline-block;
+           vertical-align:top;
+           }
+    input {
+    
+           margin-right: 0px;
+           }
+    form 
+    {
+     margin: 0px auto;
+     width: 600;
+    }
+  </style>
+
+
+    <body>
+       <div class="heading"> 
+        <div class="links">
+        <a href="/admin/adminpage">Admin Page</a>
+       <a href="/logout">Logout</a>
+      </div>
+    </div>
+    {% for e in errorlist %}
+      <p>  {{e}}  </p>
+      {% endfor %}
+      <h3>Add a Movement</h3>
+    <form action='/admin/process_postmove' method='POST'>
+    {% csrf_token %}
+    <p><label for="move">Movement Name: </label><input type="text" name="movement" id='move'></p>
+    <p><label for="rps">RepsPerSet: </label><input type="number" name="rps" id='rps'></p>
+    <p><label for="weight_type">WeightType: </label><input type="text" name="weight_type" id='weight_type'></p>
+    <p><input type="submit" value="Add"></p>
+  </form>
+    </body>
+</html>
