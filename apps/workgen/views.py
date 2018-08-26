@@ -172,7 +172,10 @@ def process_registration(request):
     #userinfo = Users.objects.get(email=request.session['username'])
     equipment = Movements.objects.values('wtype').distinct()
     equiplist = [entry for entry in equipment]
-    context = { "equipment": equiplist}
+    userinfo = Users.objects.get(email=request.session['email'])
+    context = { "equipment": equiplist,
+                "userinfo": userinfo,
+    }
     #equiplist = (equipment)
     #print str(equiplist[0])
     return render(request,'workgen/equippick.html',context) 
